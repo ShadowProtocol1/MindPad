@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { authAPI } from '../services/api';
@@ -19,6 +19,29 @@ const Login = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    // Handle OAuth error from URL params
+    const error = searchParams.get('error');
+    if (error) {
+      switch (error) {
+        case 'google_auth_failed':
+          toast.error('Google authentication failed. Please try again.');
+          break;
+        case 'no_user_data':
+          toast.error('Failed to get user information from Google. Please try again.');
+          break;
+        case 'callback_error':
+          toast.error('Authentication callback error. Please try again.');
+          break;
+        default:
+          toast.error('Authentication failed. Please try again.');
+      }
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [searchParams]);
 
   const validateForm = () => {
     const newErrors = {};

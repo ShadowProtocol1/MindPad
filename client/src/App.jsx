@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
+import AuthSuccess from './components/AuthSuccess';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/auth-success" element={<AuthSuccess />} />
               <Route 
                 path="/dashboard" 
                 element={

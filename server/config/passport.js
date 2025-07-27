@@ -8,10 +8,13 @@ passport.use(new GoogleStrategy({
   callbackURL: "/api/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
   try {
+    console.log('Google Strategy - Processing profile:', profile.id, profile.emails?.[0]?.value);
+    
     // Check if user already exists with this Google ID
     let user = await User.findOne({ googleId: profile.id });
     
     if (user) {
+      console.log('Google Strategy - Existing user found:', user.email);
       return done(null, user);
     }
     
@@ -19,27 +22,31 @@ passport.use(new GoogleStrategy({
     user = await User.findOne({ email: profile.emails[0].value });
     
     if (user) {
+      console.log('Google Strategy - Linking Google account to existing user:', user.email);
       // Link Google account to existing user
       user.googleId = profile.id;
-      user.avatar = profile.photos[0].value;
+      user.avatar = profile.photos?.[0]?.value;
       user.isVerified = true;
       await user.save();
       return done(null, user);
     }
     
     // Create new user
+    console.log('Google Strategy - Creating new user:', profile.emails[0].value);
     user = new User({
       googleId: profile.id,
       name: profile.displayName,
       email: profile.emails[0].value,
-      avatar: profile.photos[0].value,
+      avatar: profile.photos?.[0]?.value,
       isVerified: true,
       loginMethod: 'google'
     });
     
     await user.save();
+    console.log('Google Strategy - New user created:', user.email);
     done(null, user);
   } catch (error) {
+    console.error('Google Strategy error:', error);
     done(error, null);
   }
 }));

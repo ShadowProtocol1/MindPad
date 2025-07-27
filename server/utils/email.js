@@ -3,12 +3,16 @@ const nodemailer = require('nodemailer');
 // Create transporter
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
+    service: 'gmail', // Use Gmail service
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT) || 587,
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
+    },
+    tls: {
+      rejectUnauthorized: false
     }
   });
 };
@@ -20,23 +24,31 @@ const generateOTP = () => {
 
 // Send OTP email
 const sendOTPEmail = async (email, otp, name) => {
-  // In development mode, just log the OTP instead of sending email
-  if (process.env.NODE_ENV === 'development' || !process.env.EMAIL_USER || process.env.EMAIL_USER === 'your-email@gmail.com') {
-    console.log('\n=== DEVELOPMENT MODE: OTP EMAIL ===');
+  // Check if email credentials are properly configured
+  if (!process.env.EMAIL_USER || process.env.EMAIL_USER === 'your-email@gmail.com' || !process.env.EMAIL_PASS) {
+    console.log('\n=== EMAIL NOT CONFIGURED: OTP EMAIL ===');
     console.log(`To: ${email}`);
     console.log(`Name: ${name}`);
     console.log(`OTP: ${otp}`);
-    console.log('===================================\n');
+    console.log('Please configure EMAIL_USER and EMAIL_PASS in .env file');
+    console.log('=======================================\n');
     
     return { 
-      success: true, 
-      messageId: 'dev-mode-' + Date.now(),
+      success: false, 
+      error: 'Email credentials not configured properly',
       developmentMode: true 
     };
   }
 
   try {
+    console.log('Attempting to send OTP email to:', email);
     const transporter = createTransporter();
+    
+    // Verify transporter configuration
+    console.log('Verifying SMTP connection...');
+    await transporter.verify();
+    console.log('SMTP connection verified successfully');
+    console.log(`${otp} is the OTP for ${email}`);
     
     const mailOptions = {
       from: `"Notes App" <${process.env.EMAIL_USER}>`,
@@ -57,10 +69,18 @@ const sendOTPEmail = async (email, otp, name) => {
       `
     };
     
+    console.log('Sending email...');
     const result = await transporter.sendMail(mailOptions);
+    console.log('OTP email sent successfully:', result.messageId);
     return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error('Email sending error:', error);
+    console.error('Error details:', {
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode
+    });
     return { success: false, error: error.message };
   }
 };
