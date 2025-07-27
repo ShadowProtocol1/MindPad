@@ -265,11 +265,24 @@ router.get('/google',
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: `${process.env.CLIENT_URL}/login?error=google_auth_failed` }),
   (req, res) => {
-    // Generate JWT token
-    const token = generateToken(req.user._id);
-    
-    // Redirect to client with token
-    res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
+    try {
+      console.log('Google OAuth callback - User:', req.user?.email);
+      
+      if (!req.user) {
+        console.error('Google OAuth callback - No user object');
+        return res.redirect(`${process.env.CLIENT_URL}/login?error=no_user_data`);
+      }
+
+      // Generate JWT token
+      const token = generateToken(req.user._id);
+      console.log('Google OAuth callback - Token generated for user:', req.user._id);
+      
+      // Redirect to client with token
+      res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
+    } catch (error) {
+      console.error('Google OAuth callback error:', error);
+      res.redirect(`${process.env.CLIENT_URL}/login?error=callback_error`);
+    }
   }
 );
 

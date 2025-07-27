@@ -36,7 +36,12 @@ const sendOTPEmail = async (email, otp, name) => {
   }
 
   try {
+    console.log('Attempting to send OTP email to:', email);
     const transporter = createTransporter();
+    
+    // Verify transporter configuration
+    await transporter.verify();
+    console.log('SMTP connection verified successfully');
     
     const mailOptions = {
       from: `"Notes App" <${process.env.EMAIL_USER}>`,
@@ -58,9 +63,16 @@ const sendOTPEmail = async (email, otp, name) => {
     };
     
     const result = await transporter.sendMail(mailOptions);
+    console.log('OTP email sent successfully:', result.messageId);
     return { success: true, messageId: result.messageId };
   } catch (error) {
     console.error('Email sending error:', error);
+    console.error('Error details:', {
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode
+    });
     return { success: false, error: error.message };
   }
 };

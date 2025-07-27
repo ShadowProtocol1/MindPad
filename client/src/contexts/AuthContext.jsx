@@ -31,14 +31,18 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         
         // Verify token is still valid by calling the server
-        try {
-          const response = await authAPI.getProfile();
-          // Update with fresh user data from server
-          setUser(response.data.user);
-        } catch (verificationError) {
-          // Token is invalid, clear auth state
-          console.error('Token verification failed:', verificationError);
-          logout();
+        // Only verify if we haven't just completed Google OAuth (to prevent duplicate API calls)
+        const isFromOAuth = window.location.pathname === '/auth-success';
+        if (!isFromOAuth) {
+          try {
+            const response = await authAPI.getProfile();
+            // Update with fresh user data from server
+            setUser(response.data.user);
+          } catch (verificationError) {
+            // Token is invalid, clear auth state
+            console.error('Token verification failed:', verificationError);
+            logout();
+          }
         }
       }
     } catch (error) {
