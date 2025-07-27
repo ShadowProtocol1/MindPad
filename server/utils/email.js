@@ -44,12 +44,6 @@ const sendOTPEmail = async (email, otp, name) => {
     console.log('Attempting to send OTP email to:', email);
     const transporter = createTransporter();
     
-    // Verify transporter configuration
-    console.log('Verifying SMTP connection...');
-    await transporter.verify();
-    console.log('SMTP connection verified successfully');
-    console.log(`${otp} is the OTP for ${email}`);
-    
     const mailOptions = {
       from: `"Notes App" <${process.env.EMAIL_USER}>`,
       to: email,
