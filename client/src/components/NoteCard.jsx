@@ -67,20 +67,20 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
         exit={{ opacity: 0, scale: 0.9 }}
         whileHover={{ y: -4 }}
         transition={{ duration: 0.2 }}
-        className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 cursor-pointer hover:border-blue-200"
+        className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-blue-200 dark:hover:border-blue-500"
         onClick={handleCardClick}
       >
-        <div className="p-6">
+        <div className="p-6 h-full flex flex-col">
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2">
               {note.title}
             </h3>
             <div className="relative">
               <button
                 ref={dropdownButtonRef}
                 onClick={handleDropdownToggle}
-                className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors duration-150"
+                className="p-1 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
               >
                 <MoreVertical className="w-4 h-4" />
               </button>
@@ -88,20 +88,20 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
           </div>
 
           {/* Content */}
-          <div className="mb-4">
-            <p className="text-gray-600 text-sm line-clamp-3">
+          <div className="mb-4 flex-grow">
+            <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
               {truncateContent(note.content)}
             </p>
             {isContentTruncated(note.content) && (
-              <p className="text-xs text-blue-600 mt-1 opacity-70 hover:opacity-100 transition-opacity">
+              <p className="text-xs text-blue-600 dark:text-blue-400 mt-1 opacity-70 hover:opacity-100 transition-opacity">
                 Click to read full note
               </p>
             )}
           </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center text-xs text-gray-500">
+          {/* Footer - Fixed at bottom */}
+          <div className="flex items-center justify-between mt-auto">
+            <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
               <Calendar className="w-3 h-3 mr-1" />
               {formatDate(note.updatedAt)}
             </div>
@@ -111,13 +111,13 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
                 {note.tags.slice(0, 2).map((tag, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                    className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full"
                   >
                     #{tag}
                   </span>
                 ))}
                 {note.tags.length > 2 && (
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full">
                     +{note.tags.length - 2}
                   </span>
                 )}
@@ -131,7 +131,7 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
       {showDropdown && (
         <div className="fixed inset-0 z-50" onClick={() => setShowDropdown(false)}>
           <div 
-            className="absolute w-48 bg-white rounded-md shadow-lg border border-gray-200"
+            className="absolute w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700"
             style={{
               top: `${dropdownPosition.top}px`,
               right: `${dropdownPosition.right}px`
@@ -145,7 +145,7 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
                   setShowViewModal(true);
                   setShowDropdown(false);
                 }}
-                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left transition-colors duration-150"
+                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 text-left transition-colors duration-150"
               >
                 <Eye className="w-4 h-4 mr-2" />
                 View Note
@@ -156,7 +156,7 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
                   setShowEditModal(true);
                   setShowDropdown(false);
                 }}
-                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left transition-colors duration-150"
+                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 text-left transition-colors duration-150"
               >
                 <Edit className="w-4 h-4 mr-2" />
                 Edit Note
@@ -167,7 +167,7 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
                   setShowDeleteModal(true);
                   setShowDropdown(false);
                 }}
-                className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left transition-colors duration-150"
+                className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-left transition-colors duration-150"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete Note
@@ -200,7 +200,7 @@ const NoteCard = ({ note, onUpdate, onDelete }) => {
         maxWidth="max-w-sm"
       >
         <div className="space-y-4">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Are you sure you want to delete "{note.title}"? This action cannot be undone.
           </p>
           <div className="flex space-x-3">

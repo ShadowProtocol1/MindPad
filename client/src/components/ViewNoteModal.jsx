@@ -41,10 +41,10 @@ const ViewNoteModal = ({ isOpen, onClose, note }) => {
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex-1 mr-4">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {note.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
                 Created: {formatDate(note.createdAt)}
@@ -62,11 +62,11 @@ const ViewNoteModal = ({ isOpen, onClose, note }) => {
         {/* Tags */}
         {note.tags && note.tags.length > 0 && (
           <div className="flex items-center gap-2 flex-wrap">
-            <Tag className="w-4 h-4 text-gray-400" />
+            <Tag className="w-4 h-4 text-gray-400 dark:text-gray-500" />
             {note.tags.map((tag, index) => (
               <span
                 key={index}
-                className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
               >
                 #{tag}
               </span>
@@ -76,8 +76,8 @@ const ViewNoteModal = ({ isOpen, onClose, note }) => {
 
         {/* Content */}
         <div className="prose prose-gray max-w-none">
-          <div className="bg-gray-50 rounded-lg p-6 max-h-96 overflow-y-auto">
-            <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 max-h-96 overflow-y-auto">
+            <div className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
               {formatContent(note.content)}
             </div>
           </div>

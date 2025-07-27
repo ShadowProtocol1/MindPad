@@ -7,6 +7,7 @@ import { authAPI } from '../services/api';
 import Button from './ui/Button';
 import Input from './ui/Input';
 import Modal from './ui/Modal';
+import ThemeToggle from './ThemeToggle';
 
 const Profile = () => {
   const { user, logout, updateUser } = useAuth();
@@ -198,9 +199,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Back button - positioned at extreme left */}
@@ -215,10 +216,9 @@ const Profile = () => {
             </Button>
             
             {/* Centered heading */}
-            <h1 className="text-xl font-bold text-gray-900 absolute left-1/2 transform -translate-x-1/2">Profile Settings</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white absolute left-1/2 transform -translate-x-1/2">Profile Settings</h1>
             
-            {/* Empty div for balance */}
-            <div></div>
+            <div><ThemeToggle /></div>
           </div>
         </div>
       </header>
@@ -228,9 +228,9 @@ const Profile = () => {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
           {/* Profile Card */}
           <div className="xl:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-4 sm:space-y-0">
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Profile Information</h2>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Profile Information</h2>
                 {!isEditing && (
                   <Button
                     variant="outline"
@@ -266,7 +266,7 @@ const Profile = () => {
                     icon={Mail}
                     disabled={true}
                   />
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                     Email address cannot be changed for security reasons
                   </p>
                   <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-4">
@@ -301,41 +301,41 @@ const Profile = () => {
                       </span>
                     </div>
                     <div className="text-center sm:text-left">
-                      <h3 className="text-lg sm:text-xl font-medium text-gray-900">{user?.name}</h3>
-                      <p className="text-gray-500 text-sm sm:text-base">{user?.email}</p>
+                      <h3 className="text-lg sm:text-xl font-medium text-gray-900 dark:text-white">{user?.name}</h3>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">{user?.email}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none">
-                      <Mail className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 dark:bg-gray-700 sm:bg-transparent sm:dark:bg-transparent rounded-lg sm:rounded-none">
+                      <Mail className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-700">Email</p>
-                        <p className="text-gray-900 text-sm sm:text-base truncate">{user?.email}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</p>
+                        <p className="text-gray-900 dark:text-white text-sm sm:text-base truncate">{user?.email}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none">
-                      <Shield className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 dark:bg-gray-700 sm:bg-transparent sm:dark:bg-transparent rounded-lg sm:rounded-none">
+                      <Shield className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-700">Login Method</p>
-                        <p className="text-gray-900 text-sm sm:text-base capitalize">{user?.loginMethod}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Login Method</p>
+                        <p className="text-gray-900 dark:text-white text-sm sm:text-base capitalize">{user?.loginMethod}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none">
-                      <Calendar className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 dark:bg-gray-700 sm:bg-transparent sm:dark:bg-transparent rounded-lg sm:rounded-none">
+                      <Calendar className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-700">Member Since</p>
-                        <p className="text-gray-900 text-sm sm:text-base">{formatDate(user?.createdAt)}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Member Since</p>
+                        <p className="text-gray-900 dark:text-white text-sm sm:text-base">{formatDate(user?.createdAt)}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none">
-                      <Calendar className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                    <div className="flex items-center space-x-3 p-3 sm:p-0 bg-gray-50 dark:bg-gray-700 sm:bg-transparent sm:dark:bg-transparent rounded-lg sm:rounded-none">
+                      <Calendar className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-700">Last Updated</p>
-                        <p className="text-gray-900 text-sm sm:text-base">{formatDate(user?.updatedAt)}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Updated</p>
+                        <p className="text-gray-900 dark:text-white text-sm sm:text-base">{formatDate(user?.updatedAt)}</p>
                       </div>
                     </div>
                   </div>
@@ -347,8 +347,8 @@ const Profile = () => {
           {/* Actions Sidebar */}
           <div className="space-y-4 sm:space-y-6">
             {/* Security Section */}
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Security</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Security</h3>
               <div className="space-y-3">
                 {user?.loginMethod === 'email' && (
                   <Button
@@ -361,9 +361,9 @@ const Profile = () => {
                     <span className="hidden sm:inline">Change Password</span>
                   </Button>
                 )}
-                <div className="flex items-center space-x-2 p-2 sm:p-0 bg-gray-50 sm:bg-transparent rounded-lg sm:rounded-none">
+                <div className="flex items-center space-x-2 p-2 sm:p-0 bg-gray-50 dark:bg-gray-700 sm:bg-transparent sm:dark:bg-transparent rounded-lg sm:rounded-none">
                   <Shield className={`w-4 h-4 flex-shrink-0 ${user?.isVerified ? 'text-green-500' : 'text-yellow-500'}`} />
-                  <span className={`text-sm ${user?.isVerified ? 'text-green-700' : 'text-yellow-700'}`}>
+                  <span className={`text-sm ${user?.isVerified ? 'text-green-700 dark:text-green-400' : 'text-yellow-700 dark:text-yellow-400'}`}>
                     {user?.isVerified ? 'Email Verified' : 'Email Not Verified'}
                   </span>
                 </div>
@@ -417,10 +417,10 @@ const Profile = () => {
             </div>
 
             {/* Danger Zone */}
-            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-red-200">
-              <h3 className="text-lg font-semibold text-red-900 mb-4">Danger Zone</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 border border-red-200 dark:border-red-800">
+              <h3 className="text-lg font-semibold text-red-900 dark:text-red-400 mb-4">Danger Zone</h3>
               <div className="space-y-3">
-                <p className="text-sm text-red-700">
+                <p className="text-sm text-red-700 dark:text-red-300">
                   Deleting your account will permanently remove all your data including notes, settings, and account information. This action cannot be undone.
                 </p>
                 <Button
@@ -461,7 +461,7 @@ const Profile = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => togglePasswordVisibility('current')}
               style={{ marginTop: '12px' }} // Offset for label height
             >
@@ -481,7 +481,7 @@ const Profile = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => togglePasswordVisibility('new')}
               style={{ marginTop: '12px' }} // Offset for label height
             >
@@ -501,7 +501,7 @@ const Profile = () => {
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => togglePasswordVisibility('confirm')}
               style={{ marginTop: '12px' }} // Offset for label height
             >
@@ -544,22 +544,22 @@ const Profile = () => {
       >
         <div className="space-y-4">
           <div className="text-center">
-            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
-              <Trash2 className="h-6 w-6 text-red-600" />
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/20 mb-4">
+              <Trash2 className="h-6 w-6 text-red-600 dark:text-red-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               Are you absolutely sure?
             </h3>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               This action cannot be undone. This will permanently delete your account and remove all your data from our servers.
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Type <span className="font-semibold text-red-600">DELETE</span> to confirm:
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Type <span className="font-semibold text-red-600 dark:text-red-400">DELETE</span> to confirm:
             </label>
-            <input
+            <Input
               type="text"
               value={deleteConfirmText}
               onChange={(e) => setDeleteConfirmText(e.target.value)}

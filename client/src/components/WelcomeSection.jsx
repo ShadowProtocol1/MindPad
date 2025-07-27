@@ -26,7 +26,7 @@ const WelcomeSection = ({ user, notesCount }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-xl p-8 mb-8 text-white"
+      className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-800 dark:via-purple-800 dark:to-indigo-800 rounded-xl p-8 mb-8 text-white"
     >
       <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center">
         <div className="mb-4 md:mb-0">

@@ -116,6 +116,12 @@ NODE_ENV=development
 CLIENT_URL=http://localhost:5173
 ```
 
+Create a `.env` file in the `client` directory with the following variables:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
 ### 3. Install Dependencies
 
 #### Install Backend Dependencies
@@ -126,7 +132,7 @@ npm install
 
 #### Install Frontend Dependencies
 ```bash
-cd ../client
+cd client
 npm install
 ```
 
@@ -147,14 +153,6 @@ cd client
 npm run dev
 ```
 The client will run on `http://localhost:5173`
-
-### Method 2: Using Development Scripts (if available)
-
-If you have concurrently installed globally:
-```bash
-# From the root directory
-npm run dev
-```
 
 ## Building for Production
 
@@ -277,7 +275,7 @@ npm run start
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE)
 
 ## Support
 

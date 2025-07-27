@@ -9,6 +9,7 @@ import Input from '../components/ui/Input';
 import NoteCard from './NoteCard';
 import CreateNoteModal from './CreateNoteModal';
 import WelcomeSection from './WelcomeSection';
+import ThemeToggle from './ThemeToggle';
 
 const Dashboard = () => {
   const [notes, setNotes] = useState([]);
@@ -127,24 +128,25 @@ const Dashboard = () => {
   const displayNotes = notes;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">NoteTaker</h1>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">MindPad</h1>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4">
+              <ThemeToggle />
 
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate('/profile')}
               >
-                <div className="flex items-center space-x-2 text-gray-700">
+                <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-200">
                   <User className="w-4 h-4" />
                   <span className="text-sm">{user?.name}</span>
                 </div>
@@ -163,7 +165,7 @@ const Dashboard = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100"
+                className="p-2 rounded-md text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 {showMobileMenu ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -172,26 +174,29 @@ const Dashboard = () => {
 
           {/* Mobile Navigation */}
           {showMobileMenu && (
-            <div className="md:hidden py-4 border-t">
-              <div className="flex space-x-2 justify-between">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate('/profile')}
-                >
-                  <div className="flex items-center space-x-2 text-gray-700">
-                    <User className="w-4 h-4" />
-                    <span className="text-sm">{user?.name}</span>
-                  </div>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLogout}
-                  icon={LogOut}
-                >
-                  Logout
-                </Button>
+            <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex space-x-2 justify-between items-center">
+                <ThemeToggle />
+                <div className="flex space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate('/profile')}
+                  >
+                    <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-200">
+                      <User className="w-4 h-4" />
+                      <span className="text-sm">{user?.name}</span>
+                    </div>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLogout}
+                    icon={LogOut}
+                  >
+                    Logout
+                  </Button>
+                </div>
               </div>
             </div>
           )}
@@ -227,26 +232,26 @@ const Dashboard = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 animate-pulse">
-                <div className="h-4 bg-gray-200 rounded mb-4"></div>
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-6 animate-pulse">
+                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
                 <div className="space-y-2">
-                  <div className="h-3 bg-gray-200 rounded"></div>
-                  <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : displayNotes.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-24 h-24 mx-auto mb-4 text-gray-300">
+            <div className="w-24 h-24 mx-auto mb-4 text-gray-300 dark:text-gray-600">
               <svg fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               {debouncedSearchTerm ? 'No notes found' : 'No notes yet'}
             </h3>
-            <p className="text-gray-500 mb-4">
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
               {debouncedSearchTerm
                 ? 'Try adjusting your search terms'
                 : 'Create your first note to get started'

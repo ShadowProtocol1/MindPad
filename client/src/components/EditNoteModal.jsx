@@ -96,7 +96,7 @@ const EditNoteModal = ({ isOpen, onClose, onSubmit, note }) => {
         />
 
         <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
             Content
           </label>
           <textarea
@@ -106,15 +106,16 @@ const EditNoteModal = ({ isOpen, onClose, onSubmit, note }) => {
             value={formData.content}
             onChange={handleChange}
             className={`
-              block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm
-              placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 
+              block w-full px-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm
+              bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+              placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 
               focus:border-transparent transition-all duration-200 resize-none
               ${errors.content ? 'border-red-500 focus:ring-red-500' : ''}
             `}
             required
           />
           {errors.content && (
-            <p className="text-sm text-red-600">{errors.content}</p>
+            <p className="text-sm text-red-600 dark:text-red-400">{errors.content}</p>
           )}
         </div>
 

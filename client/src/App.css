@@ -1,4 +1,14 @@
 /* Global Styles */
+:root {
+  --toast-bg: #363636;
+  --toast-color: #fff;
+}
+
+html.dark {
+  --toast-bg: #1f2937;
+  --toast-color: #f9fafb;
+}
+
 * {
   margin: 0;
   padding: 0;
